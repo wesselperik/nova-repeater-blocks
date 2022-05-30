@@ -127,7 +127,7 @@ class Repeater extends Resource
     {
         $infoValue = '';
 
-        if (method_exists($this->type, 'getExtraInfo')) {
+        if ($this->type && method_exists($this->type, 'getExtraInfo')) {
             $infoValue = $this->type->getExtraInfo();
         }
 
@@ -194,7 +194,9 @@ class Repeater extends Resource
             return false;
         }
 
-        return method_exists($model->type, 'types');
+        if ($model->type) return method_exists($model->type, 'types');
+
+        return false;
     }
 
     /**
